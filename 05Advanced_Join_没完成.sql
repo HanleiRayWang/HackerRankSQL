@@ -33,12 +33,35 @@ order by x
 
 
 
-#剩下的两题比较难，没有现实面试意义
 
 #Interviews
+SELECT    contest.contest_id, contest.hacker_id, contest.name, 
+          sum(total_submissions) as sum1, 
+          sum(total_accepted_submissions) as sum2, 
+          sum(total_views) as sum3, 
+          sum(total_unique_views) as sum4
+FROM Contests contest INNER JOIN Colleges college ON contest.contest_id = college.contest_id
+                      INNER JOIN Challenges challenge ON challenge.college_id = college.college_id
+                      #这里必须使用left join，因为存在一些college和challenge没有view的
+                      LEFT JOIN ( SELECT challenge_id, 
+                                         sum(total_views) as total_views, 
+                                         sum(total_unique_views) as total_unique_views
+                                  FROM View_Stats GROUP BY challenge_id) as view_sum 
+                                  ON view_sum.challenge_id = challenge.challenge_id
+                      #这里必须使用left join，因为存在一些college和challenge没有submission的
+                      LEFT JOIN ( SELECT challenge_id, 
+                                         sum(total_submissions) as total_submissions, 
+                                         sum(total_accepted_submissions) as total_accepted_submissions
+                                  FROM Submission_Stats GROUP BY challenge_id) as submission_sum
+                                  ON submission_sum.challenge_id = challenge.challenge_id
+GROUP BY contest.contest_id,contest.hacker_id,contest.name
+having sum1+sum2+sum3+sum4>0
+ORDER BY contest.contest_ID
 
 
 
+
+#最后这一题比较难
 #15 Days of Learning SQL
 
 
