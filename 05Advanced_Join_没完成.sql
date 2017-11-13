@@ -59,6 +59,24 @@ having sum1+sum2+sum3+sum4>0
 ORDER BY contest.contest_ID
 
 
+#这种写法不正确
+/*select contest.contest_id, contest.hacker_id, contest.name, 
+       sum(submission.total_submissions) as sum1,
+       sum(submission.total_accepted_submissions) as sum2,
+       sum(view.total_views) as sum3, 
+       sum(view.total_unique_views) as sum4
+from contests contest, colleges college, challenges challenge, 
+     view_stats view, submission_stats submission
+where contest.contest_id=college.contest_id and 
+      college.college_id=challenge.college_id and
+      challenge.challenge_id=view.challenge_id and
+      challenge.challenge_id=submission.challenge_id
+group by contest.contest_id, contest.hacker_id, contest.name
+having sum1+sum2+sum3+sum4>0
+order by contest.contest_id;
+*/
+
+
 
 
 #最后这一题比较难
