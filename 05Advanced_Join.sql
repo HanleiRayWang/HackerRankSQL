@@ -33,8 +33,15 @@ order by x
 
 
 
+#剩下的两题比较难，没有现实面试意义
+
 #Interviews
 
 
 
 #15 Days of Learning SQL
+
+
+
+
+
