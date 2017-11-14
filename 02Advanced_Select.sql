@@ -13,7 +13,7 @@ select CONCAT(name,'(',LEFT(occupation,1),')')
 from OCCUPATIONS
 order by name;
 
-//注意此处一定要CAST到char去不然order之后在每个相同count的内部姓名的顺序不是alphabetical的
+#注意此处一定要CAST到char去不然order之后在每个相同count的内部姓名的顺序不是alphabetical的
 select CONCAT('There are a total of ', cast(count(name) as char), ' ', lower(occupation), 's.' )
 from OCCUPATIONS
 group by occupation
